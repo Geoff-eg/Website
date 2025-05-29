@@ -5,11 +5,12 @@ title: View by Collection
 
 {{< breadcrumbs >}}
 
+# Browse by Collection
 
-
-
+Explore my photography organized by different collections and themes.
 
 {{< /brick_title >}}
 
+{{< gallery >}}
 
 ___

@@ -1,0 +1,31 @@
+{{- $slides := (index .Page.Site.Data .Page.Language.Lang).carousel.slides -}}
+<section class="carousel-section">
+    <div class="container">
+        <div class="carousel" duration="5000">
+            <ul>
+                {{- range $slides -}}
+                <li>
+                    <img src="{{ .image }}" alt="{{ .title }}" />
+                    {{- if .title -}}
+                    <div class="carousel-caption">
+                        <h3>{{ .title }}</h3>
+                        {{- if .description -}}
+                        <p>{{ .description }}</p>
+                        {{- end -}}
+                    </div>
+                    {{- end -}}
+                </li>
+                {{- end -}}
+            </ul>
+            
+            <ol>
+                {{- range $index, $slide := $slides -}}
+                <li><a href="#carousel-slide-{{ $index }}"></a></li>
+                {{- end -}}
+            </ol>
+            
+            <div class="prev">‹</div>
+            <div class="next">›</div>
+        </div>
+    </div>
+</section>

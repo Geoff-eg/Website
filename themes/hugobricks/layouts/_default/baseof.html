@@ -19,8 +19,11 @@
   <body id="top" class="{{ if in (substr .Content  0 100) `transparent_header` }}transparent_header{{ end }} filename_{{ with .File }}{{ .BaseFileName }}{{ end }}">
     <script>      
       function updateSize() {
-        if(window.innerWidth<{{ (index .Site.Data .Language.Lang).header.mobile_view_width }}) document.body.classList.add('mobilemenu');
-        else document.body.classList.remove('mobilemenu');
+        if(window.innerWidth < {{ (index .Site.Data .Language.Lang).header.mobile_view_width }}) {
+          document.body.classList.add('mobilemenu');
+        } else {
+          document.body.classList.remove('mobilemenu');
+        }
       }
       updateSize();
       window.addEventListener("resize", updateSize);
@@ -125,6 +128,12 @@
   <script type="text/javascript" src="{{ "js/cta-popup.js" | relURL }}"></script>
   <script type="text/javascript" src="{{ "js/carousel.js" | relURL }}"></script>
   <link rel="stylesheet" href="/css/carousel.css">
+{{ end }}
+
+{{ $isGalleryPage := or (eq .RelPermalink "/view-by-collection/") (eq .RelPermalink "/view-by-theme/") }}
+{{ if $isGalleryPage }}
+  <script type="text/javascript" src="{{ "js/gallery.js" | relURL }}"></script>
+  <link rel="stylesheet" href="/css/gallery.css">
 {{ end }}
 
 
