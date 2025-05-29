@@ -1,18 +1,271 @@
 /*------------------------*/
-/* Carousel shortcode
+/* Modern Hero Carousel
 /*------------------------*/
 
-.carousel {position: relative;}
-.carousel ul {overflow: auto; display: flex; flex-wrap: nowrap; scroll-snap-type: x mandatory; scroll-snap-points-y: repeat(100%); scroll-behavior: smooth; background: gray; -ms-overflow-style: none; scrollbar-width: none; margin: 0; padding: 0;}
-.carousel ul::-webkit-scrollbar {display: none; /* Hide scrollbar for Chrome, Safari and Opera */} 
-.carousel ul li {position: relative; min-width: 100%; list-style: none; background: url() center center / cover no-repeat; scroll-snap-align: start;}
-.carousel ul li > * {position: absolute; left: 0; top: 0; width: 100%; height: 100%; }
-.carousel ul li > img {object-fit: cover;}
-.carousel ul li > div {display: flex; justify-content: center; align-items: center; color: white; font-weight: bold; font-size: 20px;}
-.carousel ol {position: absolute; bottom: 15px; display: flex; justify-content: center; left: 50%; transform: translateX(-50%); z-index: 9;}
-.carousel ol li {list-style: none; padding: 0 5px;}
-.carousel ol li a {display: block; height: 10px; width: 10px; border: 2px solid white; background: transparent; border-radius: 100%;}
-.carousel ol li.selected a {background: white;}
-.carousel .prev, .carousel .next {display: none; user-select:none; cursor: pointer; font-size: 50px; color: white; position: absolute; left: 0; padding: 15px 15px 30px; top: 50%; transform: translateY(-50%); z-index: 9; line-height: 0;}
-.carousel .next {left: auto; right: 0;}
+.hero-carousel {
+    position: relative;
+    width: 100%;
+    height: 80vh;
+    min-height: 500px;
+    max-height: 800px;
+    overflow: hidden;
+    margin: 0;
+    background: #f8f9fa;
+}
+
+.carousel-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-track {
+    position: relative;
+    width: 100%;
+    height: 100%;
+}
+
+.carousel-slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.6s ease-in-out, visibility 0.6s ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.carousel-slide.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.slide-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.slide-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    display: block;
+}
+
+.slide-content {
+    position: relative;
+    z-index: 2;
+    text-align: center;
+    color: white;
+    max-width: 800px;
+    padding: 2rem;
+    background: rgba(0, 0, 0, 0.4);
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    margin: 0 1rem;
+}
+
+.slide-title {
+    font-size: 3rem;
+    font-weight: 700;
+    margin: 0 0 1rem 0;
+    line-height: 1.2;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+.slide-description {
+    font-size: 1.25rem;
+    margin: 0 0 1rem 0;
+    line-height: 1.5;
+    opacity: 0.95;
+}
+
+.slide-category {
+    display: inline-block;
+    background: rgba(255, 255, 255, 0.2);
+    padding: 0.5rem 1rem;
+    border-radius: 25px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+}
+
+/* Navigation Buttons */
+.carousel-nav {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    padding: 0 2rem;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.carousel-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: none;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    color: #333;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    pointer-events: auto;
+}
+
+.carousel-btn:hover {
+    background: white;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
+}
+
+.carousel-btn:active {
+    transform: scale(0.95);
+}
+
+/* Indicators */
+.carousel-indicators {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 0.5rem;
+    z-index: 3;
+}
+
+.carousel-indicator {
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    border: 2px solid rgba(255, 255, 255, 0.6);
+    background: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.carousel-indicator.active,
+.carousel-indicator:hover {
+    background: white;
+    border-color: white;
+    transform: scale(1.2);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .hero-carousel {
+        height: 70vh;
+        min-height: 400px;
+    }
+    
+    .slide-content {
+        padding: 1.5rem;
+        margin: 0 0.5rem;
+    }
+    
+    .slide-title {
+        font-size: 2rem;
+    }
+    
+    .slide-description {
+        font-size: 1rem;
+    }
+    
+    .carousel-nav {
+        padding: 0 1rem;
+    }
+    
+    .carousel-btn {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-indicators {
+        bottom: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-carousel {
+        height: 60vh;
+        min-height: 350px;
+    }
+    
+    .slide-title {
+        font-size: 1.5rem;
+    }
+    
+    .slide-description {
+        font-size: 0.9rem;
+    }
+    
+    .slide-content {
+        padding: 1rem;
+    }
+}
+
+/* Animation classes for enhanced UX */
+.carousel-slide.slide-in-right {
+    animation: slideInRight 0.6s ease-out;
+}
+
+.carousel-slide.slide-in-left {
+    animation: slideInLeft 0.6s ease-out;
+}
+
+@keyframes slideInRight {
+    from {
+        opacity: 0;
+        transform: translateX(100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-100px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+/* Accessibility */
+.carousel-btn:focus,
+.carousel-indicator:focus {
+    outline: 2px solid #007bff;
+    outline-offset: 2px;
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+    .carousel-slide,
+    .carousel-btn,
+    .carousel-indicator,
+    .slide-content {
+        transition: none;
+        animation: none;
+    }
+}
 

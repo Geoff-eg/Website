@@ -1,0 +1,21 @@
+<!-- themes/hugobricks/layouts/shortcodes/imageright.html -->
+{{- $src := .Get 0 -}}
+{{- $text := .Get 1 -}}
+{{- $alt := .Get 2 | default "" -}}
+{{- $lazy := .Get 3 | default true -}}
+
+{{- if not $src -}}
+  {{- errorf "Missing image src for shortcode imageright.html" -}}
+{{- end -}}
+{{- if not $text -}}
+  {{- errorf "Missing text for shortcode imageright.html" -}}
+{{- end -}}
+
+<div class="shortcode-image offset-image offset-image-right">
+  <div class="offset-image-text">
+    <p>{{ $text | markdownify }}</p>
+  </div>
+  <figure class="offset-image-container">
+    <img src="{{ $src | absURL }}" alt="{{ $alt }}" {{ if $lazy }}loading="lazy"{{ end }}>
+  </figure>
+</div>

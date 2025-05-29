@@ -1,0 +1,19 @@
+<!-- themes/hugobricks/layouts/shortcodes/imagequad.html -->
+{{- $altText := .Get "alt" | default "Image in quad display" -}}
+{{- $lazy := .Get "lazy" | default true -}}
+{{- $images := split (trim .Inner "\n ") "\n" -}}
+
+{{- if ne (len $images) 4 -}}
+  {{- errorf "Quad image shortcode requires exactly 4 image paths. Usage: {{< imagequad alt=\"Alt text for all images\" >}}\nimage1.jpg\nimage2.jpg\nimage3.jpg\nimage4.jpg\n{{< /imagequad >}}" -}}
+{{- end -}}
+
+<div class="shortcode-image quad-image-grid">
+  {{- range $images -}}
+    {{- $imgSrc := trim . " " -}}
+    {{- if $imgSrc -}}
+      <figure class="quad-image-item">
+        <img src="{{ $imgSrc | absURL }}" alt="{{ $altText }}" {{ if $lazy }}loading="lazy"{{ end }}>
+      </figure>
+    {{- end -}}
+  {{- end -}}
+</div>  

@@ -1,0 +1,53 @@
+{{- $galleryDirs := slice "Mountains" "Trees" "Water" "The Drakensberg" -}}
+
+<section class="gallery-section">
+    <div class="container">
+        <div class="gallery-header">
+            <h2>Photo Gallery</h2>
+            <div class="gallery-filters">
+                <button class="filter-btn active" data-filter="all">All</button>
+                {{- range $galleryDirs -}}
+                <button class="filter-btn" data-filter="{{ . | urlize }}">{{ . }}</button>
+                {{- end -}}
+            </div>
+        </div>
+        
+        <div class="gallery-grid" id="gallery-grid">
+            {{- range $dir := $galleryDirs -}}
+                {{- $staticDirPath := printf "/static/%s" $dir -}}
+                {{- range (readDir $staticDirPath) -}}
+                    {{- if not .IsDir -}}
+                        {{- $imageExt := lower (path.Ext .Name) -}}
+                        {{- if in (slice ".jpg" ".jpeg" ".png" ".webp" ".gif") $imageExt -}}
+                            {{- $imagePath := printf "/%s/%s" $dir .Name -}}
+                            {{- $imageTitle := replace (path.Base .Name) (path.Ext .Name) "" -}}
+                            {{- $imageTitle = replace $imageTitle "_" " " -}}
+                            {{- $imageTitle = replace $imageTitle "-" " " -}}
+                            <div class="gallery-item" data-category="{{ $dir | urlize }}" data-title="{{ $imageTitle }}">
+                                <figure>
+                                    <img src="{{ $imagePath }}" 
+                                         alt="{{ $imageTitle }}" 
+                                         loading="lazy"
+                                         data-title="{{ $imageTitle }}"
+                                         data-category="{{ $dir }}">
+                                    <figcaption>
+                                        <h4>{{ $imageTitle }}</h4>
+                                        <p class="category">{{ $dir }}</p>
+                                    </figcaption>
+                                </figure>
+                            </div>
+                        {{- end -}}
+                    {{- end -}}
+                {{- end -}}
+            {{- end -}}
+        </div>
+        
+        <div class="gallery-loading">
+            <p>Loading more images...</p>
+        </div>
+        
+        <div class="gallery-empty" style="display: none;">
+            <p>No images found for the selected category.</p>
+        </div>
+    </div>
+</section>

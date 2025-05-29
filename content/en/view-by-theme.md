@@ -7,8 +7,10 @@ title: View by Theme
 
 # Browse by Theme
 
+Discover my photography organized by different themes and subjects.
 
 {{< /brick_title >}}
 
+{{< gallery >}}
 
 ___

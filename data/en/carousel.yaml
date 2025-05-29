@@ -1,10 +1,34 @@
-images: 
-  - image: /uploads/carousel/image1.jpg
-    content_html: "<p>Slide 1 caption</p>"
-  - image: /uploads/carousel/image2.jpg
-    content_html: "<p>Slide 2 caption</p>"
-  - image: /uploads/carousel/image3.jpg
-    content_html: "<p>Slide 3 caption</p>"
-  - image: /uploads/carousel/image4.jpg
-    content_html: "<p>Slide 4 caption</p>"
+slides:
+  - image: "/Mountains/Alone,_Together.jpg"
+    title: "Alone, Together"
+    description: "Solitary beauty in the mountain peaks"
+    category: "Mountains"
+  - image: "/Mountains/At_the_Peak_of_Cimabanche.jpg"
+    title: "At the Peak of Cimabanche"
+    description: "Stunning alpine vistas from Cimabanche peak"
+    category: "Mountains"
+  - image: "/Mountains/Early_Morning_at_Assiniboine.jpg"
+    title: "Early Morning at Assiniboine"
+    description: "Golden hour illuminates the majestic Assiniboine peak"
+    category: "Mountains"
+  - image: "/Trees/Ancient_Grove.jpg"
+    title: "Ancient Grove"
+    description: "Timeless beauty of ancient trees"
+    category: "Trees"
+  - image: "/Trees/Sunken_Aspen.jpg"
+    title: "Sunken Aspen"
+    description: "Ethereal aspen grove in natural setting"
+    category: "Trees"
+  - image: "/Water/23-05-31_FUJIFILMX-T5_311256.jpg"
+    title: "Coastal Serenity"
+    description: "Peaceful waters captured with Fujifilm X-T5"
+    category: "Water"
+  - image: "/Water/At the Edge of Splendor.jpg"
+    title: "At the Edge of Splendor"
+    description: "Where water meets magnificence"
+    category: "Water"
+  - image: "/Water/Elaho_Paradise.jpg"
+    title: "Elaho Paradise"
+    description: "Paradise found in Elaho's pristine waters"
+    category: "Water"
 
