@@ -412,7 +412,7 @@
 
 .collection-page {
     min-height: 100vh;
-    padding: 2rem 0;
+    padding: 120px 0 2rem 0; /* Add top padding to account for sticky header */
 }
 
 .collection-header {
