@@ -1,0 +1,12 @@
+<!-- themes/hugobricks/layouts/shortcodes/image.html -->
+{{- $src := .Get 0 -}}
+{{- $alt := .Get 1 | default "" -}}
+{{- $lazy := .Get 2 | default true -}}
+
+{{- if not $src -}}
+  {{- errorf "Missing image src for shortcode image.html" -}}
+{{- end -}}
+
+<figure class="shortcode-image centered-image">
+  <img src="{{ $src | absURL }}" alt="{{ $alt }}" {{ if $lazy }}loading="lazy"{{ end }}>
+</figure>

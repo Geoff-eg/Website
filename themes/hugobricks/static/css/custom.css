@@ -1,0 +1,131 @@
+/* /themes/hugobricks/static/css/custom.css */
+
+/* General Shortcode Image Styling */
+.shortcode-image {
+    margin: 2em 0; /* Add some vertical spacing */
+    text-align: center; /* Default centering for images within figure */
+}
+
+.shortcode-image img {
+    max-width: 100%;
+    height: auto;
+    display: block; /* Remove extra space below image */
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* 1. Centered Image */
+.centered-image {
+    /* text-align: center; is handled by .shortcode-image */
+}
+
+/* 2. Panoramic Image */
+.panoramic-image img {
+    width: 100%; /* Force full width */
+    max-height: 70vh; /* Limit height for very tall panos, adjust as needed */
+    object-fit: cover; /* Crop to fill if aspect ratio mismatches, or use 'contain' */
+}
+
+/* 3. Quad Image Grid */
+.quad-image-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px; /* Adjust gap as needed */
+    margin: 2em auto;
+    max-width: 900px; /* Or your preferred max width for the grid */
+}
+
+.quad-image-item {
+    margin: 0; /* Reset figure margin */
+    position: relative;
+    /* Enforce 2:3 aspect ratio */
+    /* padding-top: 150%; /* (3 / 2 * 100%) */
+}
+
+.quad-image-item img {
+    /* position: absolute;
+    top: 0;
+    left: 0; */
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* This will crop images to fit the 2:3 box */
+}
+
+/* 4 & 5. Offset Images (Left & Right) */
+.offset-image {
+    display: flex;
+    align-items: flex-start; /* Align items to the top */
+    gap: 20px; /* Space between image and text */
+    padding: 15px;
+    border: 1px solid #333; /* Thin black box frame */
+    margin: 2em auto;
+    max-width: 900px; /* Or your preferred max width */
+}
+
+.offset-image-left .offset-image-container {
+    order: 1;
+    flex: 1 1 40%; /* Image takes up to 40% width */
+}
+
+.offset-image-left .offset-image-text {
+    order: 2;
+    flex: 1 1 58%; /* Text takes up to 58% width (allowing for gap) */
+}
+
+.offset-image-right .offset-image-container {
+    order: 2;
+    flex: 1 1 40%;
+}
+
+.offset-image-right .offset-image-text {
+    order: 1;
+    flex: 1 1 58%;
+}
+
+.offset-image-container {
+    margin: 0; /* Reset figure margin */
+}
+
+.offset-image-container img {
+    width: 100%;
+    display: block;
+}
+
+.offset-image-text p {
+    margin-top: 0; /* Remove default top margin from paragraph */
+    text-align: left;
+}
+
+/* Responsive adjustments for smaller screens */
+@media (max-width: 768px) {
+    .offset-image {
+        flex-direction: column;
+        align-items: center; /* Center items when stacked */
+    }
+
+    .offset-image-left .offset-image-container,
+    .offset-image-left .offset-image-text,
+    .offset-image-right .offset-image-container,
+    .offset-image-right .offset-image-text {
+        order: initial; /* Reset order for stacking */
+        flex-basis: auto; /* Allow natural width */
+        width: 100%; /* Full width when stacked */
+        max-width: 450px; /* Max width for image/text block on small screens */
+    }
+
+    .offset-image-text {
+        margin-top: 15px; /* Add space between stacked image and text */
+    }
+
+    .quad-image-grid {
+        grid-template-columns: 1fr; /* Stack quad images on small screens */
+        max-width: 450px;
+    }
+     .quad-image-item {
+        padding-top: 0; /* Disable aspect ratio padding for stacked single column */
+    }
+    .quad-image-item img{
+        position: static; /* Disable absolute positioning */
+        object-fit: contain; /* Show full image when stacked */
+    }
+}

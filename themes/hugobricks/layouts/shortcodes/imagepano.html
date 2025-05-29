@@ -1,0 +1,12 @@
+<!-- themes/hugobricks/layouts/shortcodes/imagepano.html -->
+{{- $src := trim .Inner " \n" -}}
+{{- $alt := .Get "alt" | default "" -}}
+{{- $lazy := .Get "lazy" | default true -}}
+
+{{- if not $src -}}
+  {{- errorf "Missing image src for shortcode imagepano.html. Usage: {{< imagepano alt=\"Describe image\">}} image/path.jpg {{< /imagepano >}}" -}}
+{{- end -}}
+
+<figure class="shortcode-image panoramic-image">
+  <img src="{{ $src | absURL }}" alt="{{ $alt }}" {{ if $lazy }}loading="lazy"{{ end }}>
+</figure>
