@@ -1,0 +1,7 @@
+{{ define "content" }}
+    {{ replace (replace .Content "<p><section" "<section") "</section></p>" "</section>" | safeHTML }}
+
+
+{{ .Page.RenderString "{{< newsletter-form >}}" }}
+
+{{ end }}
