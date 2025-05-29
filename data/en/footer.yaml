@@ -1,0 +1,15 @@
+logo_image: /uploads/GGiebelhauslogo1200x1200.png
+menuitems:
+  - title: Contact
+    link:  /contact/
+  - title: About
+    link:  /about/
+  - title: Newsletter
+    link:  /newsletter/
+  - title: Privacy policy
+    link:  /privacy-policy/
+#socials:    
+#  - title: Mastodon
+#    link: https://mastodon.social/@geoff_eg
+#    logo_image: /img/mastodon.svg      
+footer_text: All rights reserved

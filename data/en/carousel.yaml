@@ -1,0 +1,10 @@
+images: 
+  - image: /uploads/carousel/image1.jpg
+    content_html: "<p>Slide 1 caption</p>"
+  - image: /uploads/carousel/image2.jpg
+    content_html: "<p>Slide 2 caption</p>"
+  - image: /uploads/carousel/image3.jpg
+    content_html: "<p>Slide 3 caption</p>"
+  - image: /uploads/carousel/image4.jpg
+    content_html: "<p>Slide 4 caption</p>"
+

@@ -1,0 +1,33 @@
+logo_image: /uploads/GGiebelhauslogo600x600.png
+logo_subtitle: Real Photos of Real Places
+# dark_header: false
+mobile_view_width: 1100
+menuitems:
+  - title: Home
+    link: /
+  - title: Gallery
+    link: /viewall/
+    items:
+      - title: All Images
+        link: /viewall/
+      - title: View by Theme
+        link: /view-by-theme/
+      - title: View by Collection
+        link: /view-by-collection/
+  - title: About
+    link: /about/
+    items: 
+      - title: About
+        link: /about/
+      - title: Inspiration
+        link: /inspiration/
+      - title: Newsletter
+        link: /newsletter/
+  - title: Contact
+    link: /contact/
+  - title: Blog
+    link: /blogs/
+cta:
+  active: true
+  title: Shop
+  link: /webshop/
