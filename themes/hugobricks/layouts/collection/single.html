@@ -1,0 +1,47 @@
+{{- define "content" -}}
+{{- $collectionSlug := .Params.collection -}}
+{{- $collections := .Site.Data.en.image_collections.collections -}}
+{{- $currentCollection := index (where $collections "slug" $collectionSlug) 0 -}}
+
+<div class="collection-page">
+    <div class="collection-header">
+        <div class="container">
+            <nav class="breadcrumb">
+                <a href="/">Home</a> 
+                <span>/</span> 
+                <a href="/view-by-collection">Collections</a> 
+                <span>/</span> 
+                <span>{{ if $currentCollection }}{{ $currentCollection.name }}{{ else }}{{ .Title }}{{ end }}</span>
+            </nav>
+            
+            <h1 class="collection-title">{{ if $currentCollection }}{{ $currentCollection.name }}{{ else }}{{ .Title }}{{ end }}</h1>
+            {{- if and $currentCollection $currentCollection.description -}}
+            <p class="collection-description">{{ $currentCollection.description }}</p>
+            {{- end -}}
+        </div>
+    </div>
+    
+    <div class="collection-gallery">
+        <div class="container">
+            <div class="gallery-grid">
+                {{- if and $currentCollection $currentCollection.images -}}
+                    {{- range $currentCollection.images -}}
+                        <div class="gallery-item">
+                            <a href="{{ . }}" data-lightbox="collection-gallery">
+                                <img src="{{ . }}" alt="Gallery image" loading="lazy" />
+                            </a>
+                        </div>
+                    {{- end -}}
+                {{- else -}}
+                    <div class="no-images">
+                        <p>No images available in this collection yet.</p>
+                        {{- if not $currentCollection -}}
+                        <p>Collection "{{ $collectionSlug }}" not found.</p>
+                        {{- end -}}
+                    </div>
+                {{- end -}}
+            </div>
+        </div>
+    </div>
+</div>
+{{- end -}}
