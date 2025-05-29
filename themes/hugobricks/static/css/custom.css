@@ -1,75 +1,119 @@
 /* /themes/hugobricks/static/css/custom.css */
 
-/* General Shortcode Image Styling */
+/*
+ * Custom CSS for HugoBricks Site
+ * 
+ * This file contains all custom styling for shortcodes and site enhancements.
+ * Organized by component for better maintainability.
+ */
+
+/* =============================================================================
+   GENERAL SHORTCODE IMAGE STYLING
+   ============================================================================= */
+
 .shortcode-image {
-    margin: 2em 0; /* Add some vertical spacing */
-    text-align: center; /* Default centering for images within figure */
+    margin: 2em 0;
+    text-align: center;
 }
 
 .shortcode-image img {
     max-width: 100%;
     height: auto;
-    display: block; /* Remove extra space below image */
+    display: block;
     margin-left: auto;
     margin-right: auto;
 }
 
-/* 1. Centered Image */
+/* =============================================================================
+   CENTERED IMAGE SHORTCODE
+   ============================================================================= */
+
 .centered-image {
-    /* text-align: center; is handled by .shortcode-image */
+    /* Inherits from .shortcode-image */
 }
 
-/* 2. Panoramic Image */
+/* =============================================================================
+   PANORAMIC IMAGE SHORTCODE
+   ============================================================================= */
+
+.panoramic-image {
+    overflow-x: auto;
+    cursor: grab;
+}
+
+.panoramic-image:active {
+    cursor: grabbing;
+}
+
 .panoramic-image img {
-    width: 100%; /* Force full width */
-    max-height: 70vh; /* Limit height for very tall panos, adjust as needed */
-    object-fit: cover; /* Crop to fill if aspect ratio mismatches, or use 'contain' */
+    width: 100%;
+    max-height: 70vh;
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-/* 3. Quad Image Grid */
+.panoramic-image img:focus {
+    outline: 2px solid #007cba;
+    outline-offset: 2px;
+}
+
+/* =============================================================================
+   QUAD IMAGE GRID SHORTCODE
+   ============================================================================= */
+
 .quad-image-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 10px; /* Adjust gap as needed */
+    gap: 10px;
     margin: 2em auto;
-    max-width: 900px; /* Or your preferred max width for the grid */
+    max-width: 900px;
 }
 
 .quad-image-item {
-    margin: 0; /* Reset figure margin */
+    margin: 0;
     position: relative;
-    /* Enforce 2:3 aspect ratio */
-    /* padding-top: 150%; /* (3 / 2 * 100%) */
+    aspect-ratio: 2/3; /* Enforce 2:3 aspect ratio */
+    overflow: hidden;
 }
 
 .quad-image-item img {
-    /* position: absolute;
-    top: 0;
-    left: 0; */
     width: 100%;
     height: 100%;
-    object-fit: cover; /* This will crop images to fit the 2:3 box */
+    object-fit: cover;
+    transition: transform 0.3s ease;
 }
 
-/* 4 & 5. Offset Images (Left & Right) */
+.quad-image-item:hover img {
+    transform: scale(1.05);
+}
+/* =============================================================================
+   OFFSET IMAGE SHORTCODES (LEFT & RIGHT)
+   ============================================================================= */
+
 .offset-image {
     display: flex;
-    align-items: flex-start; /* Align items to the top */
-    gap: 20px; /* Space between image and text */
+    align-items: flex-start;
+    gap: 20px;
     padding: 15px;
-    border: 1px solid #333; /* Thin black box frame */
+    border: 1px solid #333;
     margin: 2em auto;
-    max-width: 900px; /* Or your preferred max width */
+    max-width: 900px;
+    border-radius: 4px;
+    transition: box-shadow 0.3s ease;
+}
+
+.offset-image:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 
 .offset-image-left .offset-image-container {
     order: 1;
-    flex: 1 1 40%; /* Image takes up to 40% width */
+    flex: 1 1 40%;
 }
 
 .offset-image-left .offset-image-text {
     order: 2;
-    flex: 1 1 58%; /* Text takes up to 58% width (allowing for gap) */
+    flex: 1 1 58%;
 }
 
 .offset-image-right .offset-image-container {
@@ -83,49 +127,170 @@
 }
 
 .offset-image-container {
-    margin: 0; /* Reset figure margin */
+    margin: 0;
 }
 
 .offset-image-container img {
     width: 100%;
     display: block;
+    border-radius: 2px;
 }
 
 .offset-image-text p {
-    margin-top: 0; /* Remove default top margin from paragraph */
+    margin-top: 0;
     text-align: left;
+    line-height: 1.6;
 }
 
-/* Responsive adjustments for smaller screens */
+/* =============================================================================
+   BLOG POST ENHANCEMENTS
+   ============================================================================= */
+
+.blog-post {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2em 1em;
+}
+
+.blog-post-header {
+    margin-bottom: 2em;
+    text-align: center;
+    padding-bottom: 1em;
+    border-bottom: 1px solid #eee;
+}
+
+.blog-post-title {
+    font-size: 2.5em;
+    margin-bottom: 0.5em;
+    line-height: 1.2;
+}
+
+.blog-post-date {
+    display: block;
+    color: #666;
+    font-style: italic;
+    margin-bottom: 1em;
+}
+
+.blog-post-description {
+    font-size: 1.1em;
+    color: #555;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+.blog-post-content {
+    line-height: 1.7;
+    font-size: 1.1em;
+}
+
+.blog-post-footer {
+    margin-top: 3em;
+    padding-top: 2em;
+    border-top: 1px solid #eee;
+}
+
+.blog-post-tags {
+    text-align: center;
+}
+
+.tags-label {
+    font-weight: bold;
+    margin-right: 0.5em;
+}
+
+.tag-link {
+    display: inline-block;
+    background: #f0f0f0;
+    color: #333;
+    padding: 0.3em 0.8em;
+    margin: 0.2em;
+    border-radius: 15px;
+    text-decoration: none;
+    font-size: 0.9em;
+    transition: background-color 0.3s ease;
+}
+
+.tag-link:hover {
+    background: #e0e0e0;
+    text-decoration: none;
+}
+
+/* =============================================================================
+   ACCESSIBILITY IMPROVEMENTS
+   ============================================================================= */
+
+.skip-link {
+    position: absolute !important;
+    top: -40px !important;
+    left: 6px !important;
+    background: #000 !important;
+    color: #fff !important;
+    padding: 8px !important;
+    text-decoration: none !important;
+    z-index: 1000 !important;
+    border-radius: 4px !important;
+}
+
+.skip-link:focus {
+    top: 6px !important;
+}
+
+/* =============================================================================
+   RESPONSIVE DESIGN
+   ============================================================================= */
+
 @media (max-width: 768px) {
     .offset-image {
         flex-direction: column;
-        align-items: center; /* Center items when stacked */
+        align-items: center;
     }
 
     .offset-image-left .offset-image-container,
     .offset-image-left .offset-image-text,
     .offset-image-right .offset-image-container,
     .offset-image-right .offset-image-text {
-        order: initial; /* Reset order for stacking */
-        flex-basis: auto; /* Allow natural width */
-        width: 100%; /* Full width when stacked */
-        max-width: 450px; /* Max width for image/text block on small screens */
+        order: initial;
+        flex-basis: auto;
+        width: 100%;
+        max-width: 450px;
     }
 
     .offset-image-text {
-        margin-top: 15px; /* Add space between stacked image and text */
+        margin-top: 15px;
     }
 
     .quad-image-grid {
-        grid-template-columns: 1fr; /* Stack quad images on small screens */
+        grid-template-columns: 1fr;
         max-width: 450px;
     }
-     .quad-image-item {
-        padding-top: 0; /* Disable aspect ratio padding for stacked single column */
+    
+    .quad-image-item {
+        aspect-ratio: auto;
     }
-    .quad-image-item img{
-        position: static; /* Disable absolute positioning */
-        object-fit: contain; /* Show full image when stacked */
+    
+    .quad-image-item img {
+        object-fit: contain;
+    }
+}
+
+/* =============================================================================
+   PRINT STYLES
+   ============================================================================= */
+
+@media print {
+    .shortcode-image,
+    .quad-image-grid,
+    .offset-image {
+        break-inside: avoid;
+        page-break-inside: avoid;
+    }
+    
+    .shortcode-image img,
+    .quad-image-item img,
+    .offset-image-container img {
+        max-width: 100% !important;
+        height: auto !important;
     }
 }
