@@ -2,6 +2,7 @@
 Title: The Badlands on Film
 Description: Exploring the Alberta Badlands using Kodak TriX400 and Portra400 35mm Film
 Subject: Blog
+image: uploads/branding/Profile_Photo_bw_1200x1200.jpg
 tags:
   - Film
   - 35mm

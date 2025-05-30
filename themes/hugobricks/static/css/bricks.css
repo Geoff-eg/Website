@@ -281,32 +281,87 @@ section.blogs .grid .item h3 {padding-top: 1rem;}
 section.blogs .grid li.placeholder {display: block!important;}
 section.blogs .grid .summary .button {position: relative; bottom: 0.8rem;}
 section.blogs .filter {display: flex; justify-content: flex-end; align-items: center; gap: 0.75rem; margin: -2rem 0 1.25rem;}
-section.blogs .filter .tags {display: flex; margin: 0; gap: 0.75rem;}
+section.blogs .filter .tags {display: flex; margin: 0; gap: 0.5rem; align-items: center;}
 section.blogs .filter .tags li {list-style: none;}
-section.blogs .filter .tags.nofilter li {display: none;}
-section.blogs #loadmoreposts {position: relative; bottom: 1rem;}
-section.blogs .filter .tags li {
-    list-style: none; 
-    background: var(--textDark);
-    color: white;
-    padding: 0 0.6rem 0 1rem;
+section.blogs .filter .tags.nofilter li.no-filter-message {
+    display: flex;
+    color: var(--textMedium);
     font-size: 0.9rem;
-    border-radius: 1.15rem;
+    font-style: italic;
+}
+section.blogs .filter .tags.nofilter li:not(.no-filter-message) {display: none;}
+
+/* Active filter tags */
+section.blogs .filter .tags li.filter-tag {
+    list-style: none; 
+    background: var(--accent);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    border-radius: 1.25rem;
     display: flex;
     align-items: center;
     cursor: pointer;
-    height: 2rem;
-    line-height: 1;
+    height: auto;
+    line-height: 1.2;
     white-space: nowrap;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
 }
-section.blogs .filter .tags li::after {
-    content: "+";
-    display: inline-block;
-    margin-left: 1rem;
-    font-size: 1.5rem;
-    transform: rotate(45deg);
+
+section.blogs .filter .tags li.filter-tag:hover {
+    background: #d32f2f;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
 }
-section.blogs .filter select {
+
+section.blogs .filter .tags li.filter-tag .tag-remove {
+    background: rgba(255,255,255,0.3);
+    border-radius: 50%;
+    width: 18px;
+    height: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: bold;
+    transition: background-color 0.2s ease;
+}
+
+section.blogs .filter .tags li.filter-tag:hover .tag-remove {
+    background: rgba(255,255,255,0.5);
+}
+
+/* Clear all button */
+section.blogs .filter .tags li.clear-all-filters {
+    list-style: none; 
+    background: var(--textMedium);
+    color: white;
+    padding: 0.5rem 0.75rem;
+    font-size: 0.85rem;
+    border-radius: 1.25rem;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    height: auto;
+    line-height: 1.2;
+    white-space: nowrap;
+    gap: 0.5rem;
+    transition: all 0.2s ease;
+    border: 2px dashed transparent;
+}
+
+section.blogs .filter .tags li.clear-all-filters:hover {
+    background: var(--textDark);
+    border-color: var(--accent);
+    transform: translateY(-1px);
+}
+
+section.blogs .filter .tags li.clear-all-filters .clear-all-icon {
+    font-size: 16px;
+}
+section.blogs #loadmoreposts {position: relative; bottom: 1rem;}
     border: 0;
     background: none;
     padding: 0.25em 0.75em;

@@ -2,6 +2,11 @@
 title: "Testing New Image Shortcodes"
 date: 2025-05-28T10:00:00-07:00
 draft: false
+image: uploads/carousel/image2.jpg
+tags:
+  - blog
+  - test
+  - shortcodes
 ---
 
 {{< brick_wide >}}

@@ -2,6 +2,7 @@
 Title: How I Fell in Love with Film
 Description: A reflection on my first rolls of film, the bulky Zenith camera I used, and why it made me excited about film photography.
 Subject: Blog
+image: uploads/carousel/image3.jpg
 tags:
   - Film
   - 35mm

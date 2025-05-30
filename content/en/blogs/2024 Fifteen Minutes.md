@@ -2,6 +2,7 @@
 Title: Fifteen Minutes
 Description: Even when brief, the right light can make all the difference.
 Subject: Blog
+image: uploads/GGiebelhauslogo600x600.png
 tags:
   - Seymour
   - Image Gallery

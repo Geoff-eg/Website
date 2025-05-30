@@ -54,29 +54,53 @@ var multiselecttags_update = function(selectelement, selectEl, pillsEl) {
     });
 
     pillsEl.innerHTML = '';
+    var hasActiveFilters = false;
     for (var i=0; i<selectelement.options.length;i++) {
-        const j = i;
         if(selectelement.options[i].selected) {
+            hasActiveFilters = true;
             var li = document.createElement("li");
-            li.innerHTML = selectelement.options[i].innerHTML;
+            li.classList.add('filter-tag');
+            li.innerHTML = `
+                <span class="tag-text">${selectelement.options[i].innerHTML}</span>
+                <span class="tag-remove" aria-label="Remove filter">×</span>
+            `;
+            li.dataset.optionIndex = i; // Store the index in a data attribute
             pillsEl.append(li);
             li.addEventListener('click', function() {
-                selectelement.options[j].removeAttribute('selected');
+                const optionIndex = parseInt(this.dataset.optionIndex);
+                selectelement.options[optionIndex].removeAttribute('selected');
                 multiselecttags_update(selectelement, selectEl, pillsEl);
             });
         }
     }
+    
     pillsEl.classList.remove('nofilter');
     if(pillsEl.children.length == 0) {
         pillsEl.classList.add('nofilter');
-        var itemlist = document.querySelector('.contentitems');
-        var items = itemlist.querySelectorAll('li');
         var li = document.createElement("li");
-        li.innerHTML = "All items";
+        li.classList.add('no-filter-message');
+        li.innerHTML = "No filters applied";
         pillsEl.append(li);
+    } else {
+        // Add "Clear All" button when filters are active
+        var clearAllLi = document.createElement("li");
+        clearAllLi.classList.add('clear-all-filters');
+        clearAllLi.innerHTML = `
+            <span class="clear-all-text">Clear all</span>
+            <span class="clear-all-icon">⟲</span>
+        `;
+        clearAllLi.addEventListener('click', function() {
+            // Clear all selected options
+            for (var i=0; i<selectelement.options.length;i++) {
+                selectelement.options[i].removeAttribute('selected');
+            }
+            multiselecttags_update(selectelement, selectEl, pillsEl);
+        });
+        pillsEl.append(clearAllLi);
     }
     updatePostFilter();
 }
+/* Disable old multiselecttags custom UI implementation
 var selectelements = document.querySelectorAll('select.multiselecttags');
 selectelements.forEach(function(selectelement) {
     selectelement.style.display = 'none';
@@ -102,8 +126,7 @@ selectelements.forEach(function(selectelement) {
 
     multiselecttags_update(selectelement, selectEl, pillsEl);
 });
-
-
+*/
 
 updatePostFilter();
 function updatePostFilter() {
@@ -165,3 +188,29 @@ function loadMorePosts() {
         document.getElementById('loadmoreposts').style.display = 'none';
     }
 }
+
+// Improve UI/UX: load Choices.js for enhanced multiselect
+(function(){
+  // Load Choices.js CSS
+  const link = document.createElement('link');
+  link.rel = 'stylesheet';
+  link.href = 'https://cdn.jsdelivr.net/npm/choices.js/public/assets/styles/choices.min.css';
+  document.head.appendChild(link);
+  // Load Choices.js script
+  const script = document.createElement('script');
+  script.src = 'https://cdn.jsdelivr.net/npm/choices.js/public/assets/scripts/choices.min.js';
+  script.onload = function() {
+    document.querySelectorAll('select.multiselecttags').forEach(function(select){
+      select.style.display = 'block'; // ensure visible
+      const choices = new Choices(select, {
+        removeItemButton: true,
+        searchEnabled: true,
+        placeholderValue: 'Filter by tags',
+        itemSelectText: '',
+        shouldSort: false
+      });
+      select.addEventListener('change', updatePostFilter);
+    });
+  };
+  document.head.appendChild(script);
+})();

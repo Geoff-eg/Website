@@ -3,6 +3,11 @@ title: "Best Practices for Using Custom Shortcodes"
 date: 2025-05-28T11:00:00-07:00
 draft: false
 description: "A comprehensive guide to using the new custom image shortcodes effectively in blog posts."
+image: uploads/carousel/image1.jpg
+tags:
+  - blog
+  - tutorial
+  - shortcodes
 ---
 
 {{< brick_wide >}}
