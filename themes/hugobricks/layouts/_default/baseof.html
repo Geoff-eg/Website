@@ -130,7 +130,7 @@
   <link rel="stylesheet" href="/css/carousel.css">
 {{ end }}
 
-{{ $isGalleryPage := or (eq .RelPermalink "/view-by-collection/") (eq .RelPermalink "/view-by-theme/") }}
+{{ $isGalleryPage := or (eq .RelPermalink "/view-by-collection/") (eq .RelPermalink "/view-all/") }}
 {{ if $isGalleryPage }}
   <script type="text/javascript" src="{{ "js/gallery.js" | relURL }}"></script>
   <link rel="stylesheet" href="/css/gallery.css">
@@ -141,7 +141,7 @@
       <div>
         <div class="container">
           <div>
-            {{ partial "footerlogo.html" . }}
+            {{ partial "footerlogo.html" . }} 
           </div>
           <div>
             <ul>

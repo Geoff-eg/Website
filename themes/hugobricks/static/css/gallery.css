@@ -9,6 +9,7 @@
 .gallery-header {
     text-align: center;
     margin-bottom: 3rem;
+    margin-top: 2rem;
 }
 
 .gallery-header h2 {
@@ -22,7 +23,7 @@
     justify-content: center;
     flex-wrap: wrap;
     gap: 1rem;
-    margin-bottom: 2rem;
+    margin-bottom: 1rem;
 }
 
 .filter-btn {
@@ -42,29 +43,29 @@
     background: var(--accent);
     color: white;
     border-color: var(--accent);
-    transform: translateY(-2px);
+    transform: translateY(-.2rem);
 }
 
 .gallery-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 1.5rem;
+    gap: 1.2rem;
     margin-top: 2rem;
     padding: 0;
 }
 
 .gallery-item {
     background: white;
-    border-radius: 8px;
+    border-radius: 0;
     overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 .1rem .3rem rgba(0, 0, 0, 0.1);
     transition: all 0.3s ease;
     opacity: 1;
     transform: scale(1);
 }
 
 .gallery-item:hover {
-    transform: translateY(-4px);
+    transform: translateY(-6px);
     box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
 }
 
@@ -77,8 +78,8 @@
 .gallery-item figure {
     position: relative;
     margin: 0;
-    height: 250px;
-    overflow: hidden;
+    height: 18rem;
+    overflow: visible;
 }
 
 .gallery-item img {
@@ -101,7 +102,7 @@
     right: 0;
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
     color: white;
-    padding: 1.5rem 1rem 1rem;
+    padding: 1rem 1rem 2rem;
     transform: translateY(100%);
     transition: transform 0.3s ease;
 }
@@ -111,6 +112,7 @@
 }
 
 .gallery-item figcaption h4 {
+    color: white;
     margin: 0 0 0.3rem 0;
     font-size: 1rem;
     font-weight: 600;
@@ -249,19 +251,21 @@
 /* Lightbox enhancements for gallery */
 .gallery-lightbox-caption {
     position: fixed;
-    bottom: 15px;
+    bottom: ;
     left: 50%;
     transform: translateX(-50%);
-    background: rgba(0, 0, 0, 0.85);
-    backdrop-filter: blur(8px);
+    background: rgba(0, 0, 0, 0.6);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(.5px);
+    min-width: 40em;
     color: white;
-    padding: 1rem 1.5rem 1.2rem;
-    border-radius: 8px;
+    padding: 0rem 1.5rem .5rem;
+    border-radius: .3em;
     text-align: center;
     z-index: 10000000;
     max-width: 80vw;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
-    line-height: 1.4;
+    box-shadow: 0 1 1em rgba(0, 0, 0, 0.3);
+    line-height: 1.5;
 }
 
 .gallery-lightbox-caption h3 {
@@ -298,12 +302,15 @@
     width: auto !important;
     height: auto !important;
     max-width: 90vw;
-    max-height: 80vh;
+    max-height: 75vh;
     object-fit: contain;
     opacity: 1 !important;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
+    margin-top: -.5rem; /* shift image up slightly */
+    /* or */
+    margin-bottom: .5rem; /* shift image down slightly */
 }
 
 #lightbox.gallery .img img {
@@ -316,15 +323,14 @@
 /* Improved navigation arrows for gallery */
 #lightbox.gallery #prev, 
 #lightbox.gallery #next {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
+
     width: 60px;
     height: 60px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 24px;
+    font-size: 5em;
     font-weight: bold;
     transition: all 0.3s ease;
     margin-top: -30px;
@@ -333,29 +339,25 @@
 
 #lightbox.gallery #prev:hover, 
 #lightbox.gallery #next:hover {
-    background: rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 #lightbox.gallery #prev {
-    left: 20px;
+    left: 30px;
 }
 
 #lightbox.gallery #next {
-    right: 20px;
+    right: 30px;
 }
 
 /* Close button enhancement */
 #lightbox #close {
-    background: rgba(0, 0, 0, 0.5);
-    backdrop-filter: blur(10px);
-    border-radius: 50%;
+
     transition: all 0.3s ease;
 }
 
 #lightbox #close:hover {
-    background: rgba(0, 0, 0, 0.8);
-    transform: scale(1.1);
+    transform: scale(1.2);
 }
 
 /* Mobile responsive lightbox */

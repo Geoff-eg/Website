@@ -11,6 +11,4 @@ layout: "single"
 # Blog posts
 
 
-
-
 ___

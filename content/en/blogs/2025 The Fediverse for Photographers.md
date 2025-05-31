@@ -22,10 +22,16 @@ A quick guide to the ins and outs of the Fediverse. What it is, why it matters, 
 ## Intro 
 You probably read that title and asked yourself "what the hell is the Fediverse?" or maybe you said to yourself "oh no, not another account to signup for" - both reasonable and appropriate thoughts. The good news is that I've written this quick guide on what you ACTUALLY need to know, with a little extra for those that are curious.
 
+{{< imagepano alt="A snowy mountain scene with snow covered fir framing a distant snowy mountain" >}}
+Winter/Garibali_Winter_Pano.jpg
+{{< /imagepano >}}
+
 ## Whats the Fedi-what and why do I care? - The Short Pitch
 Imagine you could sign in to Facebook today, like a post your friend made on Twitter right before scrolling down to watch your favourite creators recent video they posted on YouTube - all from the same login! That's the Fediverse. A group of interconnected social medias where it doesn't matter where you login from, all your favourite people are there on your feed, and seeing your feed.
 
 But I already have accounts on YouTube and Instagram, why would I want another? Well, that's the wrong question, the question you should have been asking this whole time was "why should I need a separate login for every single social media?". And the Fediverse is here to fix that. One account to follow anyone you want from any other Fediverse platform style.
+
+{{< imageleft "Trees/Sunken_Aspen.jpg" "The Fediverse will even integrate with your favorite RSS feeds letting you enjoy an stream of your favourite podcasts, your local news station, or maybe a favorite blog - like this one?" >}}
 
 ## Quick Tips for New Users
 
@@ -38,11 +44,14 @@ A list of other options can be found nicely put together here. The others I woul
 
 The important thing to know about the platform you choose is it's really just the gateway you use to see the fediverse. Your interface and user experience. 
 
+
 PixelFed is a grid style image focused interface, similar to what old Instagram used to look like. An image is shown, with a 100 character text preview below. A post can include up to 10 images, and 2000 characters of text. 
 
 Mastodon is a feed based interface that includes both text and images, with the text first, followed by the images, there is no preview here, so you see the full content of everything. A post can include up to 4 images, and 500 characters of text.
 
-Why this matters is personal preference on how you want to explore your content. Platform restrictions do exist because of their setups though. So it is important to understand how your post through a PixelFed instance may show in a Mastodon feed. For example, if you post 10 images through PixelFed, only the first 4 will show to someone on Mastodon, so make sure those first 4 are the best!
+
+{{< imageright "Mountains/Alone,_Together.jpg" "Why this matters is personal preference on how you want to explore your content. Platform restrictions do exist because of their setups though. So it is important to understand how your post through a PixelFed instance may show in a Mastodon feed or on Flipboard. For example, if you post 10 images through PixelFed, only the first 4 will show to someone on Mastodon, so make sure those first 4 are the best!" "Company logo design" >}}
+
 
 And, if you don't like the platform your instance is based on, switch whenever you want. You don't lose your followers or your follows, just the instance changes and login through a different gateway.
 

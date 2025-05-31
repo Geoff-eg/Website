@@ -6,12 +6,10 @@ menuitems:
   - title: Home
     link: /
   - title: Gallery
-    link: /viewall/
+    link: /view-all/
     items:
       - title: All Images
-        link: /viewall/
-      - title: View by Theme
-        link: /view-by-theme/
+        link: /view-all/
       - title: View by Collection
         link: /view-by-collection/
   - title: About

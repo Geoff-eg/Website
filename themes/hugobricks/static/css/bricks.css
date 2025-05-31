@@ -23,11 +23,10 @@ section.intro h1 + p {padding-top: 0;}
 
 .meta {
   color: var(--textDarker);
-  margin: 0.5rem 0 1.5rem;
   font-size: 0.9rem;
   display: flex;
-  flex-direction: column; /* stack items vertically */
-  align-items: center;     /* center-align the block */
+  flex-direction: row;
+  align-items: center;
   gap: 0.5rem;
   text-align: center;
 }
