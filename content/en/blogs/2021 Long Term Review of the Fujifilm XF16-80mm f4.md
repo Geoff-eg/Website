@@ -2,6 +2,7 @@
 Title: Long Term Review of the Fujifilm XF16-80mm f4
 Description: A long term review of the Fujifilm XF16-80mm, where it excels, and where it could improve.
 Subject: Blog
+image: uploads/carousel/image4.jpg
 tags:
   - Fujifilm
   - XF16-80

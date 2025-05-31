@@ -1,9 +1,10 @@
 ---
 Title:  The Drakensberg, South Africa
 Subject: The Drakensberg, South Africa
+image: uploads/branding/Drakensberg_Enviro_Portrait.jpeg
 tags:
   - Travel
-  - Photography/Blog
+  - Photography-Blog
   - Photography
 ---
 ### The Great Escarpment

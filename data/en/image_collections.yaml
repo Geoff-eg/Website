@@ -1,0 +1,32 @@
+collections:
+  - name: "Mountains"
+    slug: "mountains"
+    description: "Majestic peaks and alpine landscapes"
+    coverImage: "/Mountains/Alone,_Together.jpg"
+    folder: "/Mountains/"
+    imageCount: 3
+    images:
+      - "/Mountains/Alone,_Together.jpg"
+      - "/Mountains/At_the_Peak_of_Cimabanche.jpg"
+      - "/Mountains/Early_Morning_at_Assiniboine.jpg"
+    
+  - name: "Trees"
+    slug: "trees"
+    description: "Ancient groves and forest scenes"
+    coverImage: "/Trees/Ancient_Grove.jpg"
+    folder: "/Trees/"
+    imageCount: 2
+    images:
+      - "/Trees/Ancient_Grove.jpg"
+      - "/Trees/Sunken_Aspen.jpg"
+    
+  - name: "Water"
+    slug: "water"
+    description: "Serene waters and coastal scenes"
+    coverImage: "/Water/At the Edge of Splendor.jpg"
+    folder: "/Water/"
+    imageCount: 3
+    images:
+      - "/Water/23-05-31_FUJIFILMX-T5_311256.jpg"
+      - "/Water/At the Edge of Splendor.jpg"
+      - "/Water/Elaho_Paradise.jpg"

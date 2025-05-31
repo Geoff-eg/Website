@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Filter Debug Test</title>
+    <style>
+        .filter-tag {
+            display: inline-block;
+            background: #f0f0f0;
+            padding: 5px 10px;
+            margin: 2px;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+        .filter-tag:hover {
+            background: #e0e0e0;
+        }
+        .tag-remove {
+            margin-left: 5px;
+            color: #999;
+            font-weight: bold;
+        }
+        .no-filter-message {
+            color: #666;
+            font-style: italic;
+        }
+        .clear-all-filters {
+            background: #007cba;
+            color: white;
+            padding: 5px 10px;
+            margin: 2px;
+            border-radius: 15px;
+            cursor: pointer;
+        }
+        .tags {
+            list-style: none;
+            padding: 0;
+            margin: 10px 0;
+        }
+        .tags li {
+            display: inline-block;
+        }
+    </style>
+</head>
+<body>
+    <h1>Filter Debug Test</h1>
+    
+    <div class="filter">
+        <select id="filter" class="multiselecttags" multiple autocomplete="off" title="Filter tags">
+            <option value="blog">blog</option>
+            <option value="photography">photography</option>
+            <option value="tutorial">tutorial</option>
+            <option value="test">test</option>
+        </select>
+    </div>
+    
+    <ul class="contentitems" data-pagesize="10">
+        <li class="tag_blog tag_photography">Blog post 1</li>
+        <li class="tag_tutorial">Tutorial post</li>
+        <li class="tag_test tag_blog">Test post</li>
+    </ul>
+    
+    <button onclick="loadMorePosts()">Load More</button>
+    
+    <script>
+        // Copy our filter.js logic here for testing
+        function findGetParameter(parameterName) {
+            var result = null, tmp = [];
+            location.search.substr(1).split("&").forEach(function (item) {
+              tmp = item.split("=");
+              if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+            });
+            return result;
+        }
+        
+        function itemsLeft(tag) {
+            if(document.getElementById('filter')) {
+                var filter = document.getElementById('filter');
+                var activetags = ".contentitems > li";
+                for (var i=0; i<filter.options.length;i++) {
+                    if(filter.options[i].selected) {
+                        activetags += '.tag_'+filter.options[i].value;
+                    }
+                }
+                activetags += '.tag_'+tag;
+                return document.querySelectorAll(activetags).length
+            }
+        }
+
+        const pagesize = parseInt(document.querySelector('.contentitems').dataset.pagesize);
+        
+        var multiselecttags_update = function(selectelement, selectEl, pillsEl) {
+            console.log('Running multiselecttags_update');
+            
+            selectEl.innerHTML = '<option>'+selectelement.title+'</option>';
+            for (var i=0; i<selectelement.options.length;i++) {
+                const j = i;
+                var tag = selectelement.options[i].value;
+                var numberofitems = document.querySelectorAll('.contentitems > li.tag_'+tag).length;
+                if(numberofitems) {
+                    var option = document.createElement("option");
+                    option.setAttribute('value',tag);
+                    option.innerHTML = selectelement.options[i].innerHTML;
+                    option.setAttribute('disabled','');
+                    selectEl.append(option);
+                    if(!selectelement.options[i].selected && itemsLeft(tag)) {
+                        option.removeAttribute('disabled');
+                    }
+                    option.dataset.index = j;
+                }
+            }
+            
+            selectEl.addEventListener('change', function() {
+                if(this.selectedIndex==0) return;
+                const option = this.options[this.selectedIndex];
+                const j = option.dataset.index;
+                selectelement.options[j].setAttribute('selected','');
+                multiselecttags_update(selectelement, selectEl, pillsEl);
+            });
+
+            pillsEl.innerHTML = '';
+            var hasActiveFilters = false;
+            for (var i=0; i<selectelement.options.length;i++) {
+                if(selectelement.options[i].selected) {
+                    hasActiveFilters = true;
+                    var li = document.createElement("li");
+                    li.classList.add('filter-tag');
+                    li.innerHTML = `
+                        <span class="tag-text">${selectelement.options[i].innerHTML}</span>
+                        <span class="tag-remove" aria-label="Remove filter">×</span>
+                    `;
+                    li.dataset.optionIndex = i;
+                    pillsEl.append(li);
+                    li.addEventListener('click', function() {
+                        const optionIndex = parseInt(this.dataset.optionIndex);
+                        selectelement.options[optionIndex].removeAttribute('selected');
+                        multiselecttags_update(selectelement, selectEl, pillsEl);
+                    });
+                }
+            }
+            
+            pillsEl.classList.remove('nofilter');
+            if(pillsEl.children.length == 0) {
+                console.log('No filters active, showing "No filters applied"');
+                pillsEl.classList.add('nofilter');
+                var li = document.createElement("li");
+                li.classList.add('no-filter-message');
+                li.innerHTML = "No filters applied";
+                pillsEl.append(li);
+            } else {
+                console.log('Filters active, adding clear all button');
+                var clearAllLi = document.createElement("li");
+                clearAllLi.classList.add('clear-all-filters');
+                clearAllLi.innerHTML = `
+                    <span class="clear-all-text">Clear all</span>
+                    <span class="clear-all-icon">⟲</span>
+                `;
+                clearAllLi.addEventListener('click', function() {
+                    for (var i=0; i<selectelement.options.length;i++) {
+                        selectelement.options[i].removeAttribute('selected');
+                    }
+                    multiselecttags_update(selectelement, selectEl, pillsEl);
+                });
+                pillsEl.append(clearAllLi);
+            }
+            updatePostFilter();
+        }
+        
+        // Initialize on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('Page loaded, initializing filters');
+            
+            var selectelements = document.querySelectorAll('select.multiselecttags');
+            selectelements.forEach(function(selectelement) {
+                selectelement.style.display = 'none';
+
+                const selectEl = document.createElement("select");
+                selectEl.setAttribute('autocomplete','off');
+                selectelement.parentElement.append(selectEl);
+
+                const pillsEl = document.createElement("ul");
+                pillsEl.classList.add('tags');
+                selectelement.parentElement.insertBefore(pillsEl,selectelement);
+
+                var v = findGetParameter('tag');
+                if(v) {
+                    for ( var i = 0; i < selectelement.options.length; i++ ) {
+                        if ( selectelement.options[i].value == v ) {
+                            selectelement.options[i].setAttribute('selected','');
+                        }
+                    }
+                }
+
+                multiselecttags_update(selectelement, selectEl, pillsEl);
+            });
+        });
+        
+        function updatePostFilter() {
+            console.log('Updating post filter');
+            // Simplified for test
+        }
+        
+        function loadMorePosts() {
+            console.log('Load more posts');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,28 @@
+<!-- themes/hugobricks/layouts/shortcodes/collections_grid.html -->
+{{- $collections := (index .Page.Site.Data .Page.Language.Lang).image_collections.collections -}}
+
+<div class="collections-grid">
+    <div class="collections-container">
+        {{- range $collections -}}
+        {{- if ne .featured false -}}
+        <div class="collection-item">
+            <a href="/collection/{{ .slug }}" class="collection-link">
+                <div class="collection-image">
+                    <img src="{{ .coverImage }}" alt="{{ .name }}" loading="lazy" />
+                    <div class="collection-overlay"></div>
+                </div>
+                <div class="collection-info">
+                    <h3 class="collection-title">{{ .name }}</h3>
+                    {{- if .description -}}
+                    <p class="collection-description">{{ .description }}</p>
+                    {{- end -}}
+                    {{- if .imageCount -}}
+                    <span class="collection-count">{{ .imageCount }} images</span>
+                    {{- end -}}
+                </div>
+            </a>
+        </div>
+        {{- end -}}
+        {{- end -}}
+    </div>
+</div>

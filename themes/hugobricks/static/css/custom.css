@@ -47,7 +47,7 @@
 
 .panoramic-image img {
     width: 100%;
-    max-height: 70vh;
+    aspect-ratio: 2 / 1; /* 1:2 aspect ratio (Height x Width) */
     object-fit: cover;
     transition: transform 0.3s ease;
 }
@@ -72,7 +72,7 @@
 .quad-image-item {
     margin: 0;
     position: relative;
-    aspect-ratio: 2/3; /* Enforce 2:3 aspect ratio */
+    aspect-ratio: 3/2; /* 2:3 aspect ratio (Height x Width) */
     overflow: hidden;
 }
 
@@ -80,11 +80,7 @@
     width: 100%;
     height: 100%;
     object-fit: cover;
-    transition: transform 0.3s ease;
-}
-
-.quad-image-item:hover img {
-    transform: scale(1.05);
+    /* Removed breathe effect (hover scale transition) */
 }
 /* =============================================================================
    OFFSET IMAGE SHORTCODES (LEFT & RIGHT)
@@ -292,5 +288,309 @@
     .offset-image-container img {
         max-width: 100% !important;
         height: auto !important;
+    }
+}
+
+/* =============================================================================
+   COLLECTIONS GRID (Browse by Collection)
+   ============================================================================= */
+
+.collections-grid {
+    margin: 2em auto;
+    max-width: 1200px;
+    padding: 0 20px;
+}
+
+.collections-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+    padding: 20px 0;
+}
+
+.collection-item {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.collection-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.collection-link {
+    display: block;
+    text-decoration: none;
+    color: inherit;
+}
+
+.collection-image {
+    position: relative;
+    aspect-ratio: 3 / 2; /* 2:3 height to width ratio as requested */
+    overflow: hidden;
+}
+
+.collection-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.collection-item:hover .collection-image img {
+    transform: scale(1.05);
+}
+
+.collection-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: linear-gradient(
+        to bottom,
+        transparent 0%,
+        transparent 60%,
+        rgba(0, 0, 0, 0.3) 80%,
+        rgba(0, 0, 0, 0.6) 100%
+    );
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.collection-item:hover .collection-overlay {
+    opacity: 1;
+}
+
+.collection-info {
+    padding: 20px;
+    background: #fff;
+    border-top: 1px solid #eee;
+}
+
+.collection-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin: 0 0 8px 0;
+    color: #333;
+}
+
+.collection-description {
+    font-size: 0.9rem;
+    color: #666;
+    margin: 0 0 10px 0;
+    line-height: 1.4;
+}
+
+.collection-count {
+    font-size: 0.8rem;
+    color: #999;
+    font-style: italic;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .collections-container {
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 20px;
+    }
+    
+    .collection-info {
+        padding: 15px;
+    }
+    
+    .collection-title {
+        font-size: 1.1rem;
+    }
+}
+
+/* =============================================================================
+   INDIVIDUAL COLLECTION PAGES
+   ============================================================================= */
+
+.collection-page {
+    min-height: 100vh;
+    padding: 120px 0 2rem 0; /* Add top padding to account for sticky header */
+}
+
+.collection-header {
+    background: #f8f9fa;
+    padding: 40px 0;
+    border-bottom: 1px solid #eee;
+    text-align: center;
+    margin-bottom: 3rem;
+}
+
+.collection-header .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.breadcrumb {
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+    color: #666;
+}
+
+.breadcrumb a {
+    color: #007cba;
+    text-decoration: none;
+}
+
+.breadcrumb a:hover {
+    text-decoration: underline;
+}
+
+.breadcrumb span {
+    margin: 0 8px;
+    color: #999;
+}
+
+.collection-page .collection-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 15px 0;
+    color: #333;
+}
+
+.collection-page .collection-description {
+    font-size: 1.1rem;
+    color: #666;
+    margin: 0;
+    line-height: 1.6;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.collection-gallery {
+    padding: 60px 0;
+    padding: 2rem 0;
+}
+
+.collection-gallery .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 20px;
+    gap: 2rem;
+    padding: 0;
+}
+
+.gallery-item {
+    position: relative;
+    aspect-ratio: 3 / 2;
+    overflow: hidden;
+    border-radius: 8px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-item:hover {
+    transform: translateY(-3px);
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+}
+
+.gallery-item a {
+    display: block;
+    width: 100%;
+    height: 100%;
+    text-decoration: none;
+}
+
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+    height: 250px;
+    display: block;
+    transition: opacity 0.3s ease;
+}
+
+.gallery-item:hover img {
+    transform: scale(1.05);
+}
+
+.no-images {
+    text-align: center;
+    font-size: 1.1rem;
+    color: #666;
+    padding: 3rem 0;
+}
+
+.error-message {
+    text-align: center;
+    padding: 100px 20px;
+    max-width: 600px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    color: #666;
+    padding: 3rem 0;
+}
+
+.error-message h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.error-message p {
+    font-size: 1.1rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+.error-message a {
+    color: #007cba;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.error-message a:hover {
+    text-decoration: underline;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+    .collection-page .collection-title {
+        font-size: 2rem;
+    }
+    
+    .gallery-grid {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 15px;
+        gap: 1rem;
+    }
+    
+    .collection-header {
+        padding: 30px 0;
+    }
+    
+    .collection-gallery {
+        padding: 40px 0;
+    }
+    
+    .collection-page {
+        padding: 1rem 0;
+    }
+}
+
+@media (max-width: 480px) {
+    .gallery-grid {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+    }
+    
+    .collection-title {
+        font-size: 1.8rem;
     }
 }

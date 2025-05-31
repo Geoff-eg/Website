@@ -1,6 +1,7 @@
 ---
 Title: An Intro to the Fediverse
 Description: A quick guide to the ins and outs of the Fediverse. What it is, why it matters, and key things you should know before you get started.
+image: uploads/branding/Profile_Photo_colour.jpg
 tags:
   - Fediverse
   - Mastodon

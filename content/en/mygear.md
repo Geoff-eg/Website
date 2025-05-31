@@ -1,8 +1,8 @@
 ---
 Subject: Blog
 tags:
-  - Photography/Gear
-  - Photography/Blog
+  - Photography-Gear
+  - Photography-Blog
   - Photography
 ---
 While I'm not a proponent of attributing gear with results, the devices and gear we use ultimately does have impacts to the final quality of images we take.

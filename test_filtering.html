@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Filter Functionality</title>
+    <script>
+        function testFilter() {
+            // Simulate filtering by 'blog' tag
+            var items = document.querySelectorAll('.contentitems > li:not(.placeholder)');
+            var visible = 0;
+            var total = items.length;
+            
+            items.forEach(function(item) {
+                if (item.classList.contains('tag_blog')) {
+                    visible++;
+                }
+            });
+            
+            console.log('Total posts:', total);
+            console.log('Posts with "blog" tag:', visible);
+            
+            // Test if we can select items by tag class
+            var blogPosts = document.querySelectorAll('.contentitems > li.tag_blog');
+            console.log('Blog posts found:', blogPosts.length);
+            
+            return {
+                total: total,
+                blogTagged: visible,
+                foundBySelector: blogPosts.length
+            };
+        }
+        
+        // Load the blog page content
+        function loadBlogContent() {
+            fetch('http://localhost:1313/blogs/')
+                .then(response => response.text())
+                .then(html => {
+                    document.body.innerHTML = html;
+                    setTimeout(testFilter, 100);
+                })
+                .catch(error => console.error('Error:', error));
+        }
+    </script>
+</head>
+<body onload="loadBlogContent()">
+    <h1>Testing Filter Functionality</h1>
+    <p>Check console for results...</p>
+</body>
+</html>
