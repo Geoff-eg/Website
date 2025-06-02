@@ -1,0 +1,17 @@
+{{ $image := resources.Get "branding/Profile_Photo_colour.jpg" }}
+{{ if $image }}
+    {{ $small := $image.Resize "300x300" }}
+    {{ $medium := $image.Resize "400x400" }}
+    {{ $large := $image.Resize "500x500" }}
+    <div class="profile-image-container">
+        <img src="{{ $medium.RelPermalink }}"
+             srcset="{{ $small.RelPermalink }} 300w,
+                     {{ $medium.RelPermalink }} 400w,
+                     {{ $large.RelPermalink }} 500w"
+             sizes="(max-width: 767px) 150px, (max-width: 1023px) 200px, 250px"
+             alt="Profile Photo"
+             class="profile-image profile-image--animated"
+             width="{{ $medium.Width }}"
+             height="{{ $medium.Height }}" />
+    </div>
+{{ end }}

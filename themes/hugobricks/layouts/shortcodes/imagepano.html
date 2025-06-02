@@ -2,11 +2,99 @@
 {{- $src := trim .Inner " \n" -}}
 {{- $alt := .Get "alt" | default "" -}}
 {{- $lazy := .Get "lazy" | default true -}}
+{{- $quality := .Get "quality" | default 85 -}}
+{{- $format := .Get "format" | default "webp" -}}
+{{- $sizes := .Get "sizes" | default "400x, 800x, 1200x, 1600x, 2000x" -}}
 
 {{- if not $src -}}
   {{- errorf "Missing image src for shortcode imagepano.html. Usage: {{< imagepano alt=\"Describe image\">}} image/path.jpg {{< /imagepano >}}" -}}
 {{- end -}}
 
-<figure class="shortcode-image panoramic-image">
-  <img src="{{ $src | absURL }}" alt="{{ $alt }}" {{ if $lazy }}loading="lazy"{{ end }}>
-</figure>
+{{- $image := "" -}}
+{{- $isExternal := hasPrefix $src "http" -}}
+
+{{- if $isExternal -}}
+  {{- /* External image - no processing */ -}}
+  <figure class="shortcode-image panoramic-image">
+    <img src="{{ $src }}" alt="{{ $alt }}" {{ if $lazy }}loading="lazy"{{ end }}>
+  </figure>
+{{- else -}}
+  {{- /* Process local image */ -}}
+  {{- /* Try different path variations */ -}}
+  {{- $cleanSrc := strings.TrimPrefix $src "/" -}}
+  {{- $image = resources.Get $cleanSrc -}}
+  
+  {{- if not $image -}}
+    {{- /* Try with leading slash removed */ -}}
+    {{- $image = resources.Get $src -}}
+  {{- end -}}
+  
+  {{- if not $image -}}
+    {{- /* Fallback to static folder */ -}}
+    <figure class="shortcode-image panoramic-image">
+      <img src="{{ $src | absURL }}" alt="{{ $alt }}" {{ if $lazy }}loading="lazy"{{ end }}>
+    </figure>
+  {{- else -}}
+    {{- /* Check if the resource is actually an image */ -}}
+    {{- $isImage := false -}}
+    {{- $validTypes := slice "image/jpeg" "image/jpg" "image/png" "image/webp" "image/gif" "image/svg+xml" -}}
+    {{- if in $validTypes $image.MediaType.Type -}}
+      {{- $isImage = true -}}
+    {{- end -}}
+
+    {{- if not $isImage -}}
+      {{- /* Not an image resource, fallback to static */ -}}
+      <figure class="shortcode-image panoramic-image">
+        <img src="{{ $src | absURL }}" alt="{{ $alt }}" {{ if $lazy }}loading="lazy"{{ end }}>
+      </figure>
+    {{- else -}}
+
+      {{- /* Convert sizes string to slice */ -}}
+      {{- $sizeList := split $sizes "," -}}
+      {{- $srcset := slice -}}
+      {{- $processedImages := slice -}}
+
+      {{- /* Generate different sizes for responsive images */ -}}
+      {{- range $sizeList -}}
+        {{- $size := trim . " " -}}
+        {{- $width := int (replace $size "x" "") -}}
+        
+        {{- /* Only resize if image is larger than target width */ -}}
+        {{- if gt $image.Width $width -}}
+          {{- $resized := $image.Resize (printf "%dx q%d %s" $width $quality $format) -}}
+          {{- $processedImages = $processedImages | append $resized -}}
+          {{- $srcset = $srcset | append (printf "%s %dw" $resized.RelPermalink $width) -}}
+        {{- end -}}
+      {{- end -}}
+
+      {{- /* Fallback - use original or largest processed image */ -}}
+      {{- $fallbackImage := $image -}}
+      {{- if $processedImages -}}
+        {{- $fallbackImage = index $processedImages 0 -}}
+      {{- end -}}
+
+      {{- /* If format conversion is requested and no resizing occurred */ -}}
+      {{- if and (ne $format "original") (not $processedImages) -}}
+        {{- $fallbackImage = $image.Process (printf "q%d %s" $quality $format) -}}
+      {{- end -}}
+
+      <figure class="shortcode-image panoramic-image">
+        {{- if $srcset -}}
+          <img src="{{ $fallbackImage.RelPermalink }}" 
+               srcset="{{ delimit $srcset ", " }}"
+               sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 1200px"
+               alt="{{ $alt }}" 
+               width="{{ $fallbackImage.Width }}" 
+               height="{{ $fallbackImage.Height }}"
+               {{ if $lazy }}loading="lazy"{{ end }}>
+        {{- else -}}
+          <img src="{{ $fallbackImage.RelPermalink }}" 
+               alt="{{ $alt }}" 
+               width="{{ $fallbackImage.Width }}" 
+               height="{{ $fallbackImage.Height }}"
+               {{ if $lazy }}loading="lazy"{{ end }}>
+        {{- end -}}
+      </figure>
+    {{- end -}}
+{{- end -}}
+{{- end -}}

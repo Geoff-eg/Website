@@ -14,12 +14,14 @@
         
         <div class="gallery-grid" id="gallery-grid">
             {{- range $dir := $galleryDirs -}}
-                {{- $staticDirPath := printf "/static/%s" $dir -}}
+                {{- $staticDirPath := printf "/assets/images/%s" $dir -}}
                 {{- range (readDir $staticDirPath) -}}
                     {{- if not .IsDir -}}
                         {{- $imageExt := lower (path.Ext .Name) -}}
                         {{- if in (slice ".jpg" ".jpeg" ".png" ".webp" ".gif") $imageExt -}}
-                            {{- $imagePath := printf "/%s/%s" $dir .Name -}}
+                            {{- $imagePath := printf "/assets/images/%s/%s" $dir .Name -}}
+                       {{ printf "/images%s" $imagePath}}
+                            {{- $image := resources.Get (printf "assets/images%s" $imagePath) -}}
                             {{- $imageTitle := replace (path.Base .Name) (path.Ext .Name) "" -}}
                             {{- $imageTitle = replace $imageTitle "_" " " -}}
                             {{- $imageTitle = replace $imageTitle "-" " " -}}
