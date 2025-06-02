@@ -139,4 +139,19 @@ document.addEventListener("DOMContentLoaded", function() {
         });
     });
 
+    //add the collection gallery lightbox on click (with custom titles)
+    var collectionElements = document.querySelectorAll('a[data-lightbox="collection-gallery"]');
+    collectionElements.forEach(element => {
+        element.addEventListener("click", function(event) {
+            event.preventDefault();
+            // Use data-title if available, fallback to img alt, then link title
+            var customTitle = this.getAttribute('data-title');
+            var altText = customTitle || (this.querySelector('img') ? this.querySelector('img').alt : this.getAttribute('title'));
+            document.getElementById('lightbox').innerHTML = '<a id="close"></a><a id="next">&rsaquo;</a><a id="prev">&lsaquo;</a><div class="img" style="background: url(\''+this.getAttribute('href')+'\') center center / contain no-repeat;" title="'+altText+'" ><img src="'+this.getAttribute('href')+'" alt="'+altText+'" /></div><span class="lightbox-caption">'+altText+'</span>';
+            document.getElementById('lightbox').style.display = 'block';
+
+            setGallery(this);
+        });
+    });
+
 });

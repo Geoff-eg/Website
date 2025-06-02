@@ -130,7 +130,7 @@
   <link rel="stylesheet" href="/css/carousel.css">
 {{ end }}
 
-{{ $isGalleryPage := or (eq .RelPermalink "/view-by-collection/") (eq .RelPermalink "/view-all/") }}
+{{ $isGalleryPage := or (eq .RelPermalink "/view-by-collection/") (eq .RelPermalink "/view-all/") (hasPrefix .RelPermalink "/collection/") }}
 {{ if $isGalleryPage }}
   <script type="text/javascript" src="{{ "js/gallery.js" | relURL }}"></script>
   <link rel="stylesheet" href="/css/gallery.css">

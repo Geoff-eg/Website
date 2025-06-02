@@ -1,4 +1,3 @@
-
 {{- $inner := . -}}
 {{- if or (eq $inner "") (eq $inner nil) -}}
     {{- $inner = "Empty brick found. Consider creating a 'content/bricks/image.md' file." -}}
@@ -8,8 +7,14 @@
 {{- end -}}
 
 {{ $inner = markdownify $inner }}
-{{ $image := index (findRE `(?s)<p><img.*?p>` $inner 1) 0 }}
-{{ $inner = replace $inner $image "" 1 }}
+{{ $image_filter := "<img src=\"([^\"]*)\" alt=\"([^\"]*)\" />" }}
+{{ $image_tag := index (findRE $image_filter $inner 1) 0 }}
+{{ $image_path := index (findRE $image_filter $inner 1) 1 }}
+{{ $image_alt := index (findRE $image_filter $inner 1) 2 }}
+
+{{ $image := resources.Get $image_path }}
+
+{{ $inner = replace $inner $image_tag "" 1 }}
 
 <section class="image">
     <div class="container twocols">
@@ -17,7 +22,11 @@
             <div>{{ $inner | safeHTML }}</div>
         </div>
         <div class="image">
-            <div>{{- $image | safeHTML -}}</div>
+            {{ if $image }}
+              <div><img src="{{ $image.RelPermalink }}" alt="{{ $image_alt }}" /></div>
+            {{ else }}
+              <div><p>Image not found: {{ $image_path }}</p></div>
+            {{ end }}
         </div>
     </div>
 </section>

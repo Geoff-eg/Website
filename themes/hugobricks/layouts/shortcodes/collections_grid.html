@@ -8,7 +8,15 @@
         <div class="collection-item">
             <a href="/collection/{{ .slug }}" class="collection-link">
                 <div class="collection-image">
-                    <img src="{{ .coverImage }}" alt="{{ .name }}" loading="lazy" />
+                    {{- $cleanedImagePath := strings.TrimPrefix "/" .coverImage -}}
+                    {{- $imageResourcePath := printf "images/%s" $cleanedImagePath -}}
+                    {{- $imageResource := resources.Get $imageResourcePath -}}
+                    {{- if $imageResource -}}
+                    <img src="{{ $imageResource.RelPermalink }}" alt="{{ .name }}" loading="lazy" />
+                    {{- else -}}
+                    <img src="/images/placeholder.jpg" alt="{{ .name }}" loading="lazy" />
+                    <p style="color: red; font-size: 12px;">Image not found: {{ $imageResourcePath }}</p>
+                    {{- end -}}
                     <div class="collection-overlay"></div>
                 </div>
                 <div class="collection-info">
