@@ -16,6 +16,6 @@
     <img src="{{ $src | absURL }}" alt="{{ $alt }}" {{ if $lazy }}loading="lazy"{{ end }}>
   </figure>
   <div class="offset-image-text">
-    <p>{{ $text | markdownify }}</p>
+    {{ $text | markdownify }}
   </div>
 </div>

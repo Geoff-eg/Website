@@ -14,30 +14,33 @@
         
         <div class="gallery-grid" id="gallery-grid">
             {{- range $dir := $galleryDirs -}}
-                {{- $staticDirPath := printf "/assets/images/%s" $dir -}}
-                {{- range (readDir $staticDirPath) -}}
+                {{- $assetDirPath := printf "images/%s" $dir -}}
+                {{- range (readDir (printf "assets/%s" $assetDirPath)) -}}
                     {{- if not .IsDir -}}
                         {{- $imageExt := lower (path.Ext .Name) -}}
                         {{- if in (slice ".jpg" ".jpeg" ".png" ".webp" ".gif") $imageExt -}}
-                            {{- $imagePath := printf "/assets/images/%s/%s" $dir .Name -}}
-                       {{ printf "/images%s" $imagePath}}
-                            {{- $image := resources.Get (printf "assets/images%s" $imagePath) -}}
-                            {{- $imageTitle := replace (path.Base .Name) (path.Ext .Name) "" -}}
-                            {{- $imageTitle = replace $imageTitle "_" " " -}}
-                            {{- $imageTitle = replace $imageTitle "-" " " -}}
-                            <div class="gallery-item" data-category="{{ $dir | urlize }}" data-title="{{ $imageTitle }}">
-                                <figure>
-                                    <img src="{{ $imagePath }}" 
-                                         alt="{{ $imageTitle }}" 
-                                         loading="lazy"
-                                         data-title="{{ $imageTitle }}"
-                                         data-category="{{ $dir }}">
-                                    <figcaption>
-                                        <h4>{{ $imageTitle }}</h4>
-                                        <p class="category">{{ $dir }}</p>
-                                    </figcaption>
-                                </figure>
-                            </div>
+                            {{- $imageResourcePath := printf "%s/%s" $assetDirPath .Name -}}
+                            {{- $image := resources.Get $imageResourcePath -}}
+                            {{- if $image -}}
+                                {{- $imageTitle := replace (path.Base .Name) (path.Ext .Name) "" -}}
+                                {{- $imageTitle = replace $imageTitle "_" " " -}}
+                                {{- $imageTitle = replace $imageTitle "-" " " -}}
+                                <div class="gallery-item" data-category="{{ $dir | urlize }}" data-title="{{ $imageTitle }}">
+                                    <figure>
+                                        <img src="{{ $image.RelPermalink }}" 
+                                             alt="{{ $imageTitle }}" 
+                                             loading="lazy"
+                                             data-title="{{ $imageTitle }}"
+                                             data-category="{{ $dir }}">
+                                        <figcaption>
+                                            <h4>{{ $imageTitle }}</h4>
+                                            <p class="category">{{ $dir }}</p>
+                                        </figcaption>
+                                    </figure>
+                                </div>
+                            {{- else -}}
+                                {{- warnf "Image not found: %s" $imageResourcePath -}}
+                            {{- end -}}
                         {{- end -}}
                     {{- end -}}
                 {{- end -}}

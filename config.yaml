@@ -1,7 +1,6 @@
 baseURL: https://www.photography.ggiebelhaus.ca
 theme: hugobricks
 defaultContentLanguage: en
-assetDir: static
 
 markup:
   goldmark:

@@ -3,9 +3,16 @@
     <div class="carousel-container">
         <div class="carousel-track">
             {{- range $index, $slide := $slides -}}
+            {{- $cleanedImagePath := strings.TrimPrefix "/" $slide.image -}}
+            {{- $imageResourcePath := printf "images/%s" $cleanedImagePath -}}
+            {{- $imageResource := resources.Get $imageResourcePath -}}
             <div class="carousel-slide {{ if eq $index 0 }}active{{ end }}" data-slide="{{ $index }}">
                 <div class="slide-image">
-                    <img src="{{ $slide.image }}" alt="{{ $slide.title }}" loading="{{ if eq $index 0 }}eager{{ else }}lazy{{ end }}" />
+                    {{- if $imageResource -}}
+                    <img src="{{ $imageResource.RelPermalink }}" alt="{{ $slide.title }}" loading="{{ if eq $index 0 }}eager{{ else }}lazy{{ end }}" />
+                    {{- else -}}
+                    <p>Image not found. Attempted path: [{{ $imageResourcePath }}] (Original path from YAML: [{{ $slide.image }}])</p>
+                    {{- end -}}
                 </div>
       <!--                {{- if $slide.title -}}
                 <div class="slide-content">

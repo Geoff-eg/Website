@@ -26,10 +26,24 @@
             <div class="gallery-grid">
                 {{- if and $currentCollection $currentCollection.images -}}
                     {{- range $currentCollection.images -}}
+                        {{- $cleanedImagePath := strings.TrimPrefix "/" .path -}}
+                        {{- $imageResourcePath := printf "images/%s" $cleanedImagePath -}}
+                        {{- $imageResource := resources.Get $imageResourcePath -}}
                         <div class="gallery-item">
-                            <a href="{{ . }}" data-lightbox="collection-gallery">
-                                <img src="{{ . }}" alt="Gallery image" loading="lazy" />
+                            {{- if $imageResource -}}
+                            <a href="{{ $imageResource.RelPermalink }}" data-lightbox="collection-gallery" data-title="{{ .title }}">
+                                <img src="{{ $imageResource.RelPermalink }}" alt="{{ .alt }}" loading="lazy" />
+                                <div class="gallery-item-overlay">
+                                    <div class="gallery-item-caption">
+                                        <h4>{{ .title }}</h4>
+                                    </div>
+                                </div>
                             </a>
+                            {{- else -}}
+                            <div class="gallery-item-error">
+                                <p>Image not found: {{ $imageResourcePath }}</p>
+                            </div>
+                            {{- end -}}
                         </div>
                     {{- end -}}
                 {{- else -}}
